@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
  * @returns {JSX.Element}
  */
 function Dashboard({ date, tables }) {
-  console.log("render!")
+
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
   const history = useHistory();
