@@ -1,8 +1,4 @@
 .side-bar {
   background-color: #393a44;
   min-width: 200px;
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  height: 100vh;
 }
