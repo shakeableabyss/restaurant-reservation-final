@@ -172,6 +172,8 @@ function timeOk(req, res, next) {
   // Format the time as a string without colon
   const thisTime = hours + minutes;
 
+  console.log(noColonDate, thisDate, time, thisTime)
+
   if (noColonDate < thisDate) {
     return next({
       status: 400,
