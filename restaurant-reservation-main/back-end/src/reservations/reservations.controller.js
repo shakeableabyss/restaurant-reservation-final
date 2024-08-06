@@ -172,8 +172,6 @@ function timeOk(req, res, next) {
   // Format the time as a string without colon
   const thisTime = hours + minutes;
 
-  console.log(noColonDate, thisDate, time, thisTime)
-
   if (noColonDate < thisDate) {
     return next({
       status: 400,
@@ -182,7 +180,8 @@ function timeOk(req, res, next) {
   } else if (noColonDate === thisDate && time < thisTime) {
     return next({
       status: 400,
-      message: "Time must be in the future!",
+      message: noColonDate + thisDate + time + thisTime,
+      //message: "Time must be in the future!",
     });
   } else {
     return next();
