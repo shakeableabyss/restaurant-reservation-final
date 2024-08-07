@@ -15,6 +15,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all route to serve the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.use("/reservations", reservationsRouter);
 app.use("/tables", tablesRouter);
 
