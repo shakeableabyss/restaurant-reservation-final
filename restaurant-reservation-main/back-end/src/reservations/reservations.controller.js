@@ -185,8 +185,7 @@ function timeOk(req, res, next) {
   } else if (noColonDate === thisDate && time < thisTime) {
     return next({
       status: 400,
-      message: noColonDate + thisDate + time + thisTime,
-      //message: "Time must be in the future!",
+      message: "Time must be in the future!",
     });
   } else {
     return next();
