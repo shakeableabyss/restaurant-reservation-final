@@ -29,7 +29,7 @@ function TableCreate() {
 
       if (response.ok) {
         console.log("Table submitted successfully");
-        history.push("/dashboard");
+        history.push("/");
         window.location.reload();
       } else {
         console.error("Failed to submit table");
