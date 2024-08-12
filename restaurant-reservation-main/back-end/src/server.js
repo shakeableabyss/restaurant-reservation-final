@@ -1,4 +1,4 @@
-/*const { PORT = 5001 } = process.env;
+const { PORT = 5001 } = process.env;
 
 const app = require("./app");
 const knex = require("./db/connection");
@@ -17,8 +17,8 @@ knex.migrate
 function listener() {
   console.log(`Listening on Port ${PORT}!`);
 }
-*/
 
+/*
 const { PORT = 5001 } = process.env;
 const path = require('path');
 const express = require('express');
@@ -50,3 +50,4 @@ knex.migrate
 function listener() {
   console.log(`Listening on Port ${PORT}!`);
 }
+  */
