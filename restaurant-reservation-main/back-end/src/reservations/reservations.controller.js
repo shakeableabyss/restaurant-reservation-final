@@ -158,12 +158,7 @@ function timeOk(req, res, next) {
     }
   }
 
-  // Get the server's time zone offset
-  const serverTimezoneOffset = new Date().getTimezoneOffset();
-
-  // Create a new Date object with the current time and adjust for the server's time zone
   const now = new Date();
-  now.setMinutes(now.getMinutes() + serverTimezoneOffset);
 
   const thisYear = now.getFullYear();
   const thisMonth = String(now.getMonth() + 1).padStart(2, "0");
