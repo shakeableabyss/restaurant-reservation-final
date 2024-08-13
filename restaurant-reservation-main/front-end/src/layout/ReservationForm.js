@@ -56,7 +56,7 @@ const ReservationForm = ({
         <input
           id="reservation_date"
           name="reservation_date"
-          type="text"
+          type="date"
           required={true}
           onChange={(e) => setReservationDate(e.target.value)}
           value={reservationDate}
@@ -67,7 +67,7 @@ const ReservationForm = ({
         <input
           id="reservation_time"
           name="reservation_time"
-          type="text"
+          type="time"
           pattern="^(0?[1-9]|1[0-2])(:?[0-5][0-9])?\s?([AaPp][Mm])|([0-9]{2}(:?[0-9]{2})?)$"
           required={true}
           onChange={(e) => setReservationTime(e.target.value)}
