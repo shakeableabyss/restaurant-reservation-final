@@ -1,6 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import Dashboard from "../dashboard/Dashboard";
+import { Redirect, Route, Switch } from "react-router-dom";
 import NotFound from "./NotFound";
 import ReservationCreate from "./ReservationCreate";
 import TableCreate from "./TableCreate";
@@ -8,7 +7,7 @@ import TableList from "./TableList";
 import ReservationSearch from "./ReservationSearch";
 import ReservationSeat from "./ReservationSeat";
 import ReservationEdit from "./ReservationEdit";
-import DashboardWrapper from '../dashboard/DashboardWrapper';
+import DashboardWrapper from "../dashboard/DashboardWrapper";
 
 /**
  * Defines all the routes for the application.
@@ -18,7 +17,6 @@ import DashboardWrapper from '../dashboard/DashboardWrapper';
  * @returns {JSX.Element}
  */
 function Routes({ tables, todayString }) {
-  
   return (
     <Switch>
       <Route exact={true} path="/">
@@ -46,7 +44,7 @@ function Routes({ tables, todayString }) {
         <TableList tables={tables} />
       </Route>
       <Route path="/dashboard">
-        <DashboardWrapper  tables={tables} todayString={todayString} />
+        <DashboardWrapper tables={tables} todayString={todayString} />
       </Route>
       <Route>
         <NotFound />
