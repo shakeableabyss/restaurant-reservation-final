@@ -43,7 +43,7 @@ export const TableList = ({ tables }) => {
     return (
       <div>
         {tables.map((table) => (
-          <div id="itemContainer">
+          <div data-table-id-status={table.table_id} id="itemContainer">
             <h5 data-table-id-status={table.table_id}>{table.table_name}</h5>
             <h6 data-table-id-status={table.table_id}>
               Seats {table.capacity} people
