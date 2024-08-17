@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Menu from "./Menu";
 import Routes from "./Routes";
 import { today } from "../utils/date-time";
@@ -14,18 +14,6 @@ import "./Layout.css";
  */
 function Layout() {
   
-  /*
-  useEffect(() => {
-    const abortController = new AbortController();
-    setTablesError(null);
-    listTables({}, abortController.signal)
-      .then(setTables)
-      .then(setLoading(false))
-      .catch(setTablesError);
-    return () => abortController.abort();
-  }, []);
-  */
-
   return (
     <div className="container-fluid">
       <div className="row h-100">

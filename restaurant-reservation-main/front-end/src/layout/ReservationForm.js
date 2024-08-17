@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ReservationForm = ({
   firstName,
@@ -16,6 +16,16 @@ const ReservationForm = ({
   setReservationTime,
   setPeople,
 }) => {
+
+  const [isMobileValid, setIsMobileValid] = useState(true);
+
+  const handleChangeMobile = (e) => {
+    const value = e.target.value;
+    const phoneNumberRegex = /^(\(?\d{3}\)?[-\s]?|\d{3}[-\s]?)\d{3}[-\s]?\d{4}$/;
+    setIsMobileValid(phoneNumberRegex.test(value));
+    setMobileNumber(value);
+  };
+
   return (
     <form name="create" onSubmit={handleSubmit}>
       <div className="form-row">
@@ -47,9 +57,11 @@ const ReservationForm = ({
           name="mobile_number"
           type="text"
           required={true}
-          onChange={(e) => setMobileNumber(e.target.value)}
+          onChange={handleChangeMobile}
           value={mobileNumber}
-        />
+          style={{ borderColor: isMobileValid ? 'black' : 'red' }}
+      />
+      {!isMobileValid && <span>Invalid phone number format</span>}
       </div>
       <div className="form-row">
         <label htmlFor="reservation_date">Reservation Date:</label>
