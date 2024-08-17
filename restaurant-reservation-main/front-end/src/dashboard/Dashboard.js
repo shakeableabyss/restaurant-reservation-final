@@ -4,6 +4,7 @@ import ReservationList from "../layout/ReservationList";
 import TableList from "../layout/TableList";
 import ErrorAlert from "../layout/ErrorAlert";
 import { today } from "../utils/date-time";
+import { listTables } from "../utils/api";
 import { useHistory } from "react-router-dom";
 
 /**
@@ -12,10 +13,13 @@ import { useHistory } from "react-router-dom";
  *  the date for which the user wants to view reservations.
  * @returns {JSX.Element}
  */
-function Dashboard({ date, tables }) {
+function Dashboard({ date }) {
 
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tablesError, setTablesError] = useState(null);
   const history = useHistory();
   const abortController = useRef(null);
 
@@ -28,6 +32,12 @@ function Dashboard({ date, tables }) {
     listReservations({ date }, abortController.current.signal)
       .then(setReservations)
       .catch(setReservationsError);
+
+    setTablesError(null);
+      listTables({}, abortController.signal)
+        .then(setTables)
+        .then(setLoading(false))
+        .catch(setTablesError);
 
     return () => abortController.current.abort();
   }, []);
@@ -132,7 +142,7 @@ function Dashboard({ date, tables }) {
             </button>
           </div>
           <ErrorAlert error={reservationsError} />
-          <ReservationList reservations={reservations} />
+          <ReservationList tables={tables} reservations={reservations} />
         </div>
         <div className="right-side">
           <TableList tables={tables} />
