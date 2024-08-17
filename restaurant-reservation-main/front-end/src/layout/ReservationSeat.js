@@ -1,18 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { listTables } from "../utils/api";
 import "./Reservations.css";
 
-export const ReservationSeat = ({ tables = [] }) => {
+export const ReservationSeat = () => {
   const history = useHistory();
   const { reservationId } = useParams();
   const [tablesError, setTablesError] = useState(null);
   const [warning, setWarning] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const [tables, setTables] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    setTablesError(null);
+    listTables({}, abortController.signal)
+      .then(setTables)
+      .then(setLoading(false))
+      .catch(setTablesError);
+    return () => abortController.abort();
+  }, []);
+
+  const handleSubmit = async (event, tableId) => {
     event.preventDefault();
 
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    const tableId = event.target.elements.table_id.value;
+    //const tableId = event.target.elements.table_id.value;
 
     const reservationData = { data: { reservation_id: reservationId } };
 
@@ -28,8 +42,8 @@ export const ReservationSeat = ({ tables = [] }) => {
       });
 
       if (response.ok) {
-        history.push("/");
-        window.location.reload();
+        history.push("/dashboard");
+        //window.location.reload();
       } else {
         const errorData = await response.json();
         if (errorData.error) {
@@ -64,14 +78,19 @@ export const ReservationSeat = ({ tables = [] }) => {
                 </option>
               ))}
             </select>
-            <button
+            <a
               type="submit"
               href={`/reservations/${reservationId}/seat`}
               data-testid="formSubmit"
+              className="seating-link"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(e, document.getElementById("table_id").value);
+              }}
             >
               Submit
-            </button>
-            <button type="button" onClick={handleCancelClick}>
+            </a>
+            <button type="button" onClick={handleCancelClick} className="seating-link">
               Cancel
             </button>
           </form>

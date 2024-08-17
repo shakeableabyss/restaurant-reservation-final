@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "./Reservations.css";
 
-export const ReservationList = ({ reservations }) => {
+export const ReservationList = ({ reservations, tables }) => {
   const history = useHistory();
 
   function formattedTextLine1(reservation) {

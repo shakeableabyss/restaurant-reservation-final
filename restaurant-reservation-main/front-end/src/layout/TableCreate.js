@@ -29,8 +29,8 @@ function TableCreate() {
 
       if (response.ok) {
         console.log("Table submitted successfully");
-        history.push("/");
-        window.location.reload();
+        history.push("/dashboard");
+        //window.location.reload();
       } else {
         console.error("Failed to submit table");
       }
@@ -75,7 +75,7 @@ function TableCreate() {
         />
       </div>
       <div className="button-container">
-        <button type="submit" data-testid="formSubmit">
+      <button type="submit" data-testid="formSubmit">
           Submit
         </button>
         <button type="button" onClick={handleCancelClick}>

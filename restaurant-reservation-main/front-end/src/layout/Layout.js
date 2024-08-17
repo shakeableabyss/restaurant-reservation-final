@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import Routes from "./Routes";
-import { listTables } from "../utils/api";
 import { today } from "../utils/date-time";
 
 import "./Layout.css";
@@ -14,11 +13,8 @@ import "./Layout.css";
  * @returns {JSX.Element}
  */
 function Layout() {
-  const [tables, setTables] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [tablesError, setTablesError] = useState(null);
-
+  
+  /*
   useEffect(() => {
     const abortController = new AbortController();
     setTablesError(null);
@@ -28,6 +24,7 @@ function Layout() {
       .catch(setTablesError);
     return () => abortController.abort();
   }, []);
+  */
 
   return (
     <div className="container-fluid">
@@ -36,7 +33,7 @@ function Layout() {
           <Menu />
         </div>
         <div className="col">
-          <Routes tables={tables} todayString={today()} />
+          <Routes todayString={today()} />
         </div>
       </div>
     </div>
