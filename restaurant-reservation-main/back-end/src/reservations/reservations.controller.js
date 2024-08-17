@@ -53,6 +53,7 @@ async function notFound(req, res, next) {
 function notTuesday(req, res, next) {
   const data = req.body.data;
   const dayName = getDayOfWeek(data.reservation_date);
+  
   if (dayName === "Tuesday") {
     return next({
       status: 400,
@@ -65,14 +66,14 @@ function notTuesday(req, res, next) {
 
 function getDayOfWeek(dateString) {
   const daysOfWeek = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+    "Saturday"
+   ];
   const date = new Date(dateString);
   const dayIndex = date.getDay();
   return daysOfWeek[dayIndex];
