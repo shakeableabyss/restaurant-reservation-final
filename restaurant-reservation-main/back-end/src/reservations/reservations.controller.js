@@ -76,6 +76,7 @@ function getDayOfWeek(dateString) {
    ];
   const date = new Date(dateString);
   const dayIndex = date.getDay();
+  console.log(dateString, date, dayIndex)
   return daysOfWeek[dayIndex];
 }
 
