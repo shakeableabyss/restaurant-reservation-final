@@ -252,6 +252,22 @@ function reservationTimeIsValid(req, res, next) {
   return next();
 }
 
+function mobileIsNumerical(req, res, next) {
+  const { data = {} } = req.body;
+  const mobileNumber = data.mobile_number;
+
+  const phoneNumberRegex = /^(\(?\d{3}\)?[-\s]?|\d{3}[-\s]?)\d{3}[-\s]?\d{4}$/;
+  const mobileOk = phoneNumberRegex.test(mobileNumber)
+
+  if (!mobileOk) {
+    return next({
+      status: 400,
+      message: `Must be a valid mobile number!`,
+    });
+  }
+  return next();
+}
+
 function peopleIsNumerical(req, res, next) {
   const { data = {} } = req.body;
   const people = data.people;
@@ -323,6 +339,7 @@ module.exports = {
     bodyDataHas("first_name"),
     bodyDataHas("last_name"),
     bodyDataHas("mobile_number"),
+    mobileIsNumerical,
     bodyDataHas("reservation_date"),
     reservationDateIsValid,
     bodyDataHas("reservation_time"),
@@ -339,6 +356,7 @@ module.exports = {
     bodyDataHas("first_name"),
     bodyDataHas("last_name"),
     bodyDataHas("mobile_number"),
+    mobileIsNumerical,
     bodyDataHas("reservation_date"),
     reservationDateIsValid,
     bodyDataHas("reservation_time"),
