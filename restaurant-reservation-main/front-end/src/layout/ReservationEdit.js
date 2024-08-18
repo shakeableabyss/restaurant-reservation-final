@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import ReservationForm from "./ReservationForm";
+import moment from 'moment';
 
 const addReservation = (
   reservationId,
@@ -39,6 +40,8 @@ function ReservationEdit() {
   const [earlyWarning, setEarlyWarning] = useState(false);
   const [lateWarning, setLateWarning] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isMobileValid, setIsMobileValid] = useState(true);
+  const [mobileWarning, setMobileWarning] = useState(false);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -131,11 +134,12 @@ function ReservationEdit() {
     setPastWarning(false);
     setEarlyWarning(false);
     setLateWarning(false);
+    setMobileWarning(false);
 
     const responseData = await response.json();
 
     if (response.ok) {
-      history.push(`/dashboard?date=${responseData.data.reservation_date}`);
+      history.push(`/dashboard?date=${responseData.data.reservation_date.slice(0,10)}`);
     } else {
       switch (responseData.error) {
         case "Time is in the past!":
@@ -154,6 +158,9 @@ function ReservationEdit() {
         case "Time is too late!":
           setLateWarning(true);
           break;
+        case "Must be a valid mobile number!":
+          setMobileWarning(true);
+          break;
       }
     }
   };
@@ -168,18 +175,9 @@ function ReservationEdit() {
   }
 
   function getDayOfWeek(dateString) {
-    const daysOfWeek = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ];
-    const date = new Date(dateString);
-    const dayIndex = date.getDay();
-    return daysOfWeek[dayIndex];
+    const date = moment(dateString);
+    const dayName = date.format('dddd');
+    return dayName;
   }
 
   function handleCancelClick() {
@@ -189,7 +187,7 @@ function ReservationEdit() {
   return (
     !loading && (
       <div>
-        {(pastWarning || tuesdayWarning || earlyWarning || lateWarning) && (
+        {(pastWarning || tuesdayWarning || earlyWarning || lateWarning || mobileWarning) && (
           <div className="alert alert-danger">
             {earlyWarning && <h5>Warning: Too early, not open yet!</h5>}
             {lateWarning && <h5>Warning: Too late, restaurant will close!</h5>}
@@ -197,6 +195,7 @@ function ReservationEdit() {
               <h5>Warning: Date / Time must be in the future!</h5>
             )}
             {tuesdayWarning && <h5>Warning: We are closed on Tuesdays!</h5>}
+            {mobileWarning && <h5>Warning: Mobile number is not valid!</h5>}
           </div>
         )}
         <ReservationForm
@@ -214,6 +213,8 @@ function ReservationEdit() {
           setReservationDate={setReservationDate}
           setReservationTime={setReservationTime}
           setPeople={setPeople}
+          isMobileValid={isMobileValid}
+          setIsMobileValid={setIsMobileValid}
         />
       </div>
     )

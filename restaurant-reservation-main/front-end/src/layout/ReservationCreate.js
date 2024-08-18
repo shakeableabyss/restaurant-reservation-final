@@ -34,6 +34,8 @@ function ReservationCreate() {
   const [pastWarning, setPastWarning] = useState(false);
   const [earlyWarning, setEarlyWarning] = useState(false);
   const [lateWarning, setLateWarning] = useState(false);
+  const [isMobileValid, setIsMobileValid] = useState(true);
+  const [mobileWarning, setMobileWarning] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,7 +48,7 @@ function ReservationCreate() {
       people
     );
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-
+    
     const abortController = new AbortController();
 
     try {
@@ -63,16 +65,17 @@ function ReservationCreate() {
       setPastWarning(false);
       setEarlyWarning(false);
       setLateWarning(false);
+      setMobileWarning(false);
 
       const responseData = await response.json();
 
       if (response.ok) {
-        //const extractedDate = responseData.data.reservation_date.substring(0, 10);
+        
         const [resYear, resMonth, resDate] = responseData.data.reservation_date.substring(0, 10).split('-');
         const dateObj = new Date(resYear, resMonth, resDate);
         const month = String(dateObj.getMonth()).padStart(2, '0');
         const day = String(dateObj.getDate()).padStart(2, '0');
-        console.log(responseData.data.reservation_date.substring(0, 10), day, dateObj)
+        
         const year = dateObj.getFullYear();
 
         const goto = `${year}-${month}-${day}`;
@@ -94,6 +97,9 @@ function ReservationCreate() {
             break;
           case "Time is too late!":
             setLateWarning(true);
+            break;
+          case "Must be a valid mobile number!":
+            setMobileWarning(true);
             break;
         }
       }
@@ -133,12 +139,13 @@ function ReservationCreate() {
 
   return (
     <div>
-      {(pastWarning || tuesdayWarning || earlyWarning || lateWarning) && (
+      {(pastWarning || tuesdayWarning || earlyWarning || lateWarning || mobileWarning) && (
         <div className="alert alert-danger">
           {earlyWarning && <h5>Warning: Too early, not open yet!</h5>}
           {lateWarning && <h5>Warning: Too late, restaurant will close!</h5>}
           {pastWarning && <h5>Warning: Date / Time must be in the future!</h5>}
           {tuesdayWarning && <h5>Warning: We are closed on Tuesdays!</h5>}
+          {mobileWarning && <h5>Warning: Mobile number is not valid!</h5>}
         </div>
       )}
       <ReservationForm
@@ -156,6 +163,8 @@ function ReservationCreate() {
         setReservationDate={setReservationDate}
         setReservationTime={setReservationTime}
         setPeople={setPeople}
+        isMobileValid={isMobileValid}
+        setIsMobileValid={setIsMobileValid}
       />
     </div>
   );

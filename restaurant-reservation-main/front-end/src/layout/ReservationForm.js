@@ -15,11 +15,11 @@ const ReservationForm = ({
   setReservationDate,
   setReservationTime,
   setPeople,
+  isMobileValid,
+  setIsMobileValid,
 }) => {
 
-  const [isMobileValid, setIsMobileValid] = useState(true);
-
-  const handleChangeMobile = (e) => {
+    const handleChangeMobile = (e) => {
     const value = e.target.value;
     const phoneNumberRegex = /^(\(?\d{3}\)?[-\s]?|\d{3}[-\s]?)\d{3}[-\s]?\d{4}$/;
     setIsMobileValid(phoneNumberRegex.test(value));
