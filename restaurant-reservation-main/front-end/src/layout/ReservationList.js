@@ -51,7 +51,7 @@ export const ReservationList = ({ reservations, tables }) => {
         );
 
         if (response.ok) {
-          history.push("/");
+          history.push("/dashboard");
           window.location.reload();
         } else {
           console.error("Failed to cancel reservation");

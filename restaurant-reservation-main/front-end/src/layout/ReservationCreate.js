@@ -67,7 +67,7 @@ function ReservationCreate() {
       const responseData = await response.json();
 
       if (response.ok) {
-        const dateObj = new Date(responseData.data.reservation_date);
+        const dateObj = new Date(responseData.data.reservation_date.substring(0, 10));
         const month = String(dateObj.getMonth() + 1);
         const day = String(dateObj.getDate());
         const year = dateObj.getFullYear();

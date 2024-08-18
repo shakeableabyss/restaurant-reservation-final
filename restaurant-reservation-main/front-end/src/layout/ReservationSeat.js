@@ -57,7 +57,7 @@ export const ReservationSeat = () => {
   };
 
   function handleCancelClick() {
-    history.push("/");
+    history.push("/dashboard");
   }
 
   if (tables.length !== 0) {

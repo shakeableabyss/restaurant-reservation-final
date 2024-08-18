@@ -25,7 +25,7 @@ export const TableList = ({ tables }) => {
         });
 
         if (response.ok) {
-          history.push("/");
+          history.push("/dashboard");
           window.location.reload();
         } else {
           const errorData = await response.json();
