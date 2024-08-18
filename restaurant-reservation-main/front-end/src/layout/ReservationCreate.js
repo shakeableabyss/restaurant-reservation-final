@@ -67,8 +67,9 @@ function ReservationCreate() {
       const responseData = await response.json();
 
       if (response.ok) {
-        const extractedDate = responseData.data.reservation_date.substring(0, 10)
-        const dateObj = new Date(Date.parse(extractedDate));
+        //const extractedDate = responseData.data.reservation_date.substring(0, 10);
+        const [resYear, resMonth, resDate] = responseData.data.reservation_date.substring(0, 10).split('-');
+        const dateObj = new Date(resYear, resMonth-1, resDate);
         const month = String(dateObj.getMonth() + 1);
         const day = String(dateObj.getDate());
         console.log(responseData.data.reservation_date.substring(0, 10), day, dateObj)
