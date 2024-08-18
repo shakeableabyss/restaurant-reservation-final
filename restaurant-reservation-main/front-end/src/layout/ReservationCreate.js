@@ -69,9 +69,9 @@ function ReservationCreate() {
       if (response.ok) {
         //const extractedDate = responseData.data.reservation_date.substring(0, 10);
         const [resYear, resMonth, resDate] = responseData.data.reservation_date.substring(0, 10).split('-');
-        const dateObj = new Date(resYear, resMonth-1, resDate);
-        const month = String(dateObj.getMonth() + 1);
-        const day = String(dateObj.getDate());
+        const dateObj = new Date(resYear, resMonth, resDate);
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
         console.log(responseData.data.reservation_date.substring(0, 10), day, dateObj)
         const year = dateObj.getFullYear();
 
