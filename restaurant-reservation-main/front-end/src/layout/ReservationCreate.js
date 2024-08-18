@@ -70,7 +70,7 @@ function ReservationCreate() {
         const dateObj = new Date(responseData.data.reservation_date.substring(0, 10));
         const month = String(dateObj.getMonth() + 1);
         const day = String(dateObj.getDate());
-        console.log(day, dateObj)
+        console.log(responseData.data.reservation_date.substring(0, 10), day, dateObj)
         const year = dateObj.getFullYear();
 
         const goto = `${year}-${month}-${day}`;
