@@ -51,39 +51,6 @@ async function notFound(req, res, next) {
   return res.status(404).json({ error: `Path does not exist.` });
 }
 
-
-/*
-function notTuesday(req, res, next) {
-  const data = req.body.data;
-  const dayName = getDayOfWeek(data.reservation_date);
-  
-  if (dayName === "Tuesday") {
-    return next({
-      status: 400,
-      message: `We are closed on Tuesdays!`,
-    });
-  }
-
-  return next();
-}
-
-function getDayOfWeek(dateString) {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-   ];
-  const date = new Date(dateString + 'T00:00:00.000Z');
-  const dayIndex = date.getDay();
-  console.log(dateString, date, dayIndex)
-  return daysOfWeek[dayIndex];
-}
-  */
-
 function notTuesday(req, res, next) {
   const data = req.body.data;
   const dayName = getDayOfWeek(data.reservation_date);
@@ -101,7 +68,6 @@ function notTuesday(req, res, next) {
 function getDayOfWeek(dateString) {
   const date = moment(dateString);
   const dayName = date.format('dddd');
-  console.log(dayName)
   return dayName;
 }
 
